@@ -419,7 +419,7 @@ def generate_pdf(
         pie_data    = positions.groupby("Ticker")["Total Cost Basis"].sum()
         pie_labels  = pie_data.index.tolist()
         pie_values  = pie_data.values
-        colors_used = PIE_COLORS[: len(pie_labels)]
+        colors_used = [PIE_COLORS[i % len(PIE_COLORS)] for i in range(len(pie_labels))]
         wedges, texts, autotexts = pie_ax.pie(
             pie_values, labels=None,
             autopct=lambda p: f"{p:.1f}%" if p > 3 else "",
@@ -446,7 +446,7 @@ def generate_pdf(
         ent_data   = positions.groupby("Entity")["Total Cost Basis"].sum()
         ent_labels = ent_data.index.tolist()
         ent_values = ent_data.values
-        ent_colors = PIE_COLORS[4:4 + len(ent_labels)]
+        ent_colors = [PIE_COLORS[(4 + i) % len(PIE_COLORS)] for i in range(len(ent_labels))]
         ent_ax.pie(
             ent_values, labels=None,
             autopct=lambda p: f"{p:.1f}%" if p > 3 else "",
@@ -652,7 +652,7 @@ def generate_pdf(
                 mini_pie_ax.pie(
                     ep_vals, labels=None,
                     autopct=lambda p: f"{p:.1f}%" if p > 5 else "",
-                    colors=PIE_COLORS[:len(ep_vals)],
+                    colors=[PIE_COLORS[i % len(PIE_COLORS)] for i in range(len(ep_vals))],
                     wedgeprops={"edgecolor": WHITE, "linewidth": 1},
                     startangle=140, pctdistance=0.8
                 )
