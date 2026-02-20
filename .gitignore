@@ -1,0 +1,25 @@
+# Trade blotter – sensitive financial data, keep local only
+data/*.xlsx
+data/*.xls
+data/*.csv
+
+# Generated outputs
+reports/
+output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
