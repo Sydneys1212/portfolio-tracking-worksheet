@@ -336,7 +336,7 @@ def generate_pdf(
     realized_pl: list,
     blotter: pd.DataFrame,
 ):
-    print(f"  Generating PDF → {PDF_PATH}")
+    print(f"  Generating PDF -> {PDF_PATH}")
 
     total_cost    = positions["Total Cost Basis"].sum()
     total_pos     = len(positions)
@@ -701,7 +701,7 @@ def generate_pdf(
             pdf.savefig(fig, bbox_inches="tight")
             plt.close(fig)
 
-    print(f"  PDF saved → {PDF_PATH}")
+    print(f"  PDF saved -> {PDF_PATH}")
 
 
 # ══════════════════════════════════════════════════════════
@@ -709,7 +709,7 @@ def generate_pdf(
 # ══════════════════════════════════════════════════════════
 
 def generate_excel(positions: pd.DataFrame):
-    print(f"  Generating Excel → {EXCEL_PATH}")
+    print(f"  Generating Excel -> {EXCEL_PATH}")
 
     wb = Workbook()
     ws = wb.active
@@ -870,8 +870,8 @@ def generate_excel(positions: pd.DataFrame):
     total_lbl.alignment = center_align
     total_lbl.border    = border
 
-    # Merge label across A–H
-    ws.merge_cells(f"A{totals_row}:H{totals_row}")
+    # Merge label across A–G (H and I are used for totals)
+    ws.merge_cells(f"A{totals_row}:G{totals_row}")
 
     # Total Cost Basis sum
     tcb_total = ws.cell(
@@ -896,10 +896,6 @@ def generate_excel(positions: pd.DataFrame):
     mv_total.alignment    = right_align
     mv_total.border       = border
     mv_total.number_format = '$#,##0.00'
-
-    # Unmerge A–H and redo to leave col 8 and 9 separate
-    ws.unmerge_cells(f"A{totals_row}:H{totals_row}")
-    ws.merge_cells(f"A{totals_row}:G{totals_row}")
 
     for col in range(1, 13):
         c = ws.cell(row=totals_row, column=col)
@@ -954,7 +950,7 @@ def generate_excel(positions: pd.DataFrame):
             ws2.cell(row=ri, column=ci).font = data_font
 
     wb.save(str(EXCEL_PATH))
-    print(f"  Excel saved → {EXCEL_PATH}")
+    print(f"  Excel saved -> {EXCEL_PATH}")
 
 
 # ══════════════════════════════════════════════════════════
@@ -992,8 +988,8 @@ def main():
 
     print("\n" + "=" * 60)
     print("  Done!")
-    print(f"  PDF    → {PDF_PATH}")
-    print(f"  Excel  → {EXCEL_PATH}")
+    print(f"  PDF    -> {PDF_PATH}")
+    print(f"  Excel  -> {EXCEL_PATH}")
     print("=" * 60 + "\n")
 
 
